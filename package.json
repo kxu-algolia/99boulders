@@ -1,0 +1,19 @@
+{
+  "name": "99boulders",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "algoliasearch": "^4.10.2",
+    "instantsearch.js": "^4.24.2"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}
