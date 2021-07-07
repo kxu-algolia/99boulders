@@ -39,6 +39,7 @@ search.addWidgets([
                 empty: 'No results',
                 item: `
                   <div class="item">
+                      <a href={{buy_link}} target="_blank">
                       <figure class="hit-image-container">
                         <div class="hit-image-container-box">
                             <img class="hit-image" src="{{image_url}}" alt="">
@@ -67,6 +68,7 @@ search.addWidgets([
                             {{/sale_percentage}}
                           </div>
                       </div>
+                      </a>
                   </div>
                   <br>`,
             },
@@ -77,7 +79,7 @@ search.addWidgets([
         indexId: 'blog',
     }).addWidgets([
         configure({
-            hitsPerPage: 5,
+            hitsPerPage: 9,
         }),
         hits({
             container: '#blog',
@@ -85,16 +87,23 @@ search.addWidgets([
                 empty: 'No results',
                 item: `
                   <div class="item row">
+                     <a href={{url}} target="_blank">
                       <figure class="hit-image-container">
                         <div class="hit-image-container-box">
-                            <img class="hit-image" src="{{image}}" alt="">
+                                {{#sectionImageUrl}}
+                                <img class="hit-image" src="{{sectionImageUrl}}" alt="">
+                                {{/sectionImageUrl}}
+                                {{^sectionImageUrl}}
+                                <img class="hit-image" src="{{imageUrl}}" alt="">
+                                {{/sectionImageUrl}}
                         </div>
                         </figure>
                       <p class="hit-category">&#8203;​</p>
                       <div class="item-content">
                           <p class="title hit-tag">{{{_highlightResult.title.value}}}</p>
-                          <p class="description">{{{_highlightResult.description.value}}}</p>
+                          <p class="hit-description">{{#helpers.snippet}}{"attribute":"content"}{{/helpers.snippet}}</p>
                       </div>
+                    </a>
                   </div>
                   <br>`,
             },
