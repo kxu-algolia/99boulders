@@ -1,6 +1,7 @@
 import sys
 import csv
 import json
+import xml.etree.ElementTree as ET
 csv.field_size_limit(sys.maxsize)
 
 # Function to convert a CSV to JSON
@@ -11,9 +12,27 @@ def make_json(csvFilePath, jsonFilePath):
     with open(csvFilePath, encoding='utf-8') as csvf:
         csvReader = csv.DictReader(csvf)
         for row in csvReader:
+            record = {}
+
+            # Variants
+            variants = []
+            for child in ET.fromstring(row['Variants XML']):
+                attributes = ['sku', 'vendor_sku', 'upc', 'size', 'color', 'retail_price', 'sale_price']
+                variant = {}
+                for attrib in attributes:
+                    try:
+                        variant[attrib] = child.find(attrib).text
+                    except:
+                        pass
+                variants.append(variant)
+
+            # Set Product ID
+            record['product_id'] = row['SKU']
+            print("processing", row['SKU'])
 
             # Remove Unused Fields
             remove = [
+                'SKU',
                 'Product Page View Tracking',
                 'Variants XML',
                 'Product Content Widget',
@@ -24,7 +43,6 @@ def make_json(csvFilePath, jsonFilePath):
                 row.pop(item)
 
             # Convert keys to snake_case
-            record = {}
             for key, val in row.items():
                 k = snake_case(camelCase(key))
                 record[k] = val
@@ -49,7 +67,10 @@ def make_json(csvFilePath, jsonFilePath):
             # TODO: Business Relevance
             # star rating? purchase count? inventory status?
 
-            data.append(record)
+            # Create records for all variants
+            for variant in variants:
+                variant.update(record);
+                data.append(variant)
 
     # Open a json writer, and use the json.dumps()
     # function to dump data
@@ -68,7 +89,7 @@ def snake_case(s):
 # Decide the two file paths according to your
 # computer system
 csvFilePath = r'Backcountry_272937_datafeed.csv'
-jsonFilePath = r'bc.json'
+jsonFilePath = r'bc_distinct.json'
 
 # Call the make_json function
 make_json(csvFilePath, jsonFilePath)
