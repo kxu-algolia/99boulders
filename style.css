@@ -1751,6 +1751,8 @@ font-weight: inherit;
     border-radius: 0.25rem;
     background-color: #f5f5fa;
 }
+
+
 .ais-Hits-list {
     display: grid;
     grid-gap: 20px;
@@ -1844,3 +1846,16 @@ font-weight: inherit;
     font-size: 24px;
     margin-bottom: 16px;
 }
+
+
+.badge {
+    color: white;
+    background-color: #3c4fe0;
+    display: inline-block;
+    padding: 0 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    line-height: 22px;
+}
+

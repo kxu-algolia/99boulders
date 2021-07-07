@@ -11,7 +11,8 @@ let appID = 'ZCMWU7GCJV';
 let apiKey = 'fa7849a542f5c67f82291aebac55f07e';
 
 const search = instantsearch({
-    indexName: 'products-bc',
+    //indexName: 'products-bc',
+    indexName: 'products-bc-distinct',
     searchClient: algoliasearch(appID, apiKey),
 });
 
@@ -25,7 +26,8 @@ search.addWidgets([
         showLoadingIndicator: true,
     }),
     index({
-        indexName: 'products-bc',
+        //indexName: 'products-bc',
+        indexName: 'products-bc-distinct',
         indexId: 'products',
     }).addWidgets([
         configure({
@@ -44,16 +46,25 @@ search.addWidgets([
                         </figure>
                       <p class="hit-category">&#8203;​</p>
                       <div class="item-content">
+                            {{#sale_percentage}}
+                                <p class="sale-percentage badge">{{sale_percentage}}% off</p>
+                            {{/sale_percentage}}
                           <p class="brand hit-tag">{{{_highlightResult.brand_name.value}}}</p>
                           <p class="name">{{{_highlightResult.product_name.value}}}</p>
-                          <div class="hit-description">
-                            <p class="retail-price">Retail Price: <b class="hit-currency">$
-                            {{{retail_price}}}</p>
-                            </b>
-                            <p class="sale-price">Sale Price: <b class="hit-currency">$
-                            {{{sale_price}}}
-                            </p>
-                            </b>
+                          <p>{{color}}, {{size}}</p>
+                          <div class="hit-description" style="margin-top:.5rem;">
+                            {{#sale_percentage}}
+                                <p class="sale-price" style="font-weight:700;">$ {{sale_price}}</p>
+                                </b>
+                                <p class="retail-price" style="color:#808080;">
+                                    <strike>$ {{retail_price}}</strike>
+                                </p>
+                                </b>
+                            {{/sale_percentage}}
+                            {{^sale_percentage}}
+                                <p class="retail-price" style="font-weight:700;">$ {{retail_price}}</p>
+                                </b>
+                            {{/sale_percentage}}
                           </div>
                       </div>
                   </div>
@@ -66,7 +77,7 @@ search.addWidgets([
         indexId: 'blog',
     }).addWidgets([
         configure({
-            hitsPerPage: 3,
+            hitsPerPage: 5,
         }),
         hits({
             container: '#blog',
