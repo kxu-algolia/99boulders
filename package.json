@@ -3,17 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "homepage": "https://kxu-algolia.github.io/99boulders/",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html --public-url ./",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
-  "author": "",
+  "author": "kxu",
   "license": "ISC",
   "dependencies": {
+    "@algolia/autocomplete-theme-classic": "^1.2.1",
     "algoliasearch": "^4.10.2",
-    "instantsearch.js": "^4.24.2"
+    "instantsearch.js": "^4.24.2",
+    "parcel-bundler": "^1.12.5"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.5"
+    "gh-pages": "^3.2.3"
   }
 }
