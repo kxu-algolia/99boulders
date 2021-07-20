@@ -1,0 +1,195 @@
+body,
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    padding: 0.5rem 1rem;
+    background-image: linear-gradient(284deg, #fedd4e, #fcb43a);
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.header a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.header-title {
+    font-size: 1.2rem;
+    font-weight: normal;
+}
+
+.header-title::after {
+    content: ' ▸ ';
+    padding: 0 0.5rem;
+}
+
+.header-subtitle {
+    font-size: 1.2rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.search-panel {
+    display: flex;
+}
+
+.search-panel__filters {
+    flex: 1;
+}
+
+.search-panel__results {
+    flex: 3;
+}
+
+.ais-Highlight-highlighted {
+    color: inherit;
+    font-size: inherit;
+}
+
+.ais-SearchBox-input {
+    width: 80%;
+}
+
+
+#searchbox {
+    margin-bottom: 2rem;
+}
+
+#pagination {
+    margin: 2rem auto;
+    text-align: center;
+}
+
+/* Custom */
+
+#current-refinements {
+    margin-bottom: 1rem;
+}
+
+/* Banner */
+
+.banner-image {
+    width: 100%;
+    height: 250px;
+    margin-bottom: 2rem;
+    object-fit: cover;
+}
+
+/* 99Boulders Header */
+
+.logo {
+    padding: 20px 10px 10px 10px;
+    display: inline;
+    float:left;
+    margin-left: 4rem;
+}
+
+.nav {
+    padding:21px 11px 11px 11px;
+   list-style:none;
+   margin:0;
+   float:left;
+   margin-top: 3rem;
+   margin-left: 50vw;
+}
+
+@media (max-width: 1500px) {
+  .nav {
+    margin-left: 25vw;
+  }
+}
+
+.nav li {
+   display:inline;
+}
+
+.menu-item {
+      text-transform: uppercase;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 1rem;
+      font-family: "Helvetica";
+}
+.menu-item:hover {
+  color: #456cd5;
+
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #e2e2e2;
+    color: #e2e2e2;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+}
+
+.category-header {
+    margin: 1rem 0 1rem 0;
+}
+
+/* Hits Item Overrides */
+
+
+.ais-Hits-item {
+    border: none;
+    box-shadow: none;
+}
+
+.item mark {
+    background-color: rgba(226,164,0,.4);
+}
+.item a {
+    color: #0d375d;
+    text-decoration: none;
+}
+.item a:hover {
+    color:#00A0C6; 
+    text-decoration:none; 
+    cursor:pointer;  
+}
+
+.badge {
+    color: white;
+    background-color: #458cd5;
+    display: inline-block;
+    padding: 0 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    line-height: 22px;
+}
+
+.item-product-name {
+    font-weight:600;
+    margin-top: 0px;
+}
+.item-image {
+    width:100%;
+    margin-bottom: 1rem;
+}
+.item-price-container p {
+    margin: 2px 0 2px 0;
+}
+.item-price-strike {
+    color: #c8c8c8;
+}
+.item-price {
+    font-weight: 500;
+    color: #458cd5;
+}
