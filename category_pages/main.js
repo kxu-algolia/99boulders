@@ -1,3 +1,33 @@
+/**********************************************************
+ * Initialize search clients and UI widgets
+ *********************************************************/
+
+import instantsearch from 'instantsearch.js';
+import algoliasearch from 'algoliasearch';
+import {
+    searchBox,
+    hits,
+    refinementList,
+    pagination,
+    toggleRefinement,
+    numericMenu,
+    configure,
+    queryRuleCustomData,
+} from 'instantsearch.js/es/widgets';
+
+const search = instantsearch({
+  indexName: 'products-bc-distinct',
+  searchClient: algoliasearch(
+    'ZCMWU7GCJV',
+    'fa7849a542f5c67f82291aebac55f07e'
+    )
+});
+
+
+/**********************************************************
+ * Initialize Insights API
+ *********************************************************/
+
 import {
   createInsightsMiddleware,
 } from 'instantsearch.js/es/middlewares';
@@ -5,66 +35,58 @@ import {
 const insightsMiddleware = createInsightsMiddleware({
   insightsClient: aa,
 });
+search.use(insightsMiddleware);
+aa('setUserToken', 'admin');
 
-const searchClient = algoliasearch(
-    'ZCMWU7GCJV',
-    'fa7849a542f5c67f82291aebac55f07e'
-);
-const search = instantsearch({
-  indexName: 'products-bc-distinct',
-  searchClient,
-});
-
-//search.use(insightsMiddleware);
 
 var brand_name = "Osprey Packs"
 
 search.addWidgets([
-
-    instantsearch.widgets.searchBox({
+    searchBox({
         container: '#searchbox',
     }),
-    instantsearch.widgets.hits({
+    hits({
         container: '#hits',
         templates: {
-            item: `
-                <div class="item">
-                    <a href={{buy_link}} target="_blank">
-                        <img class="item-image" src="{{image_url}}">
-                    </a>
+            item(hit, bindEvent) {
 
-                    {{#sale_percentage}}
-                    <p class="sale-percentage badge">{{sale_percentage}}% off</p>
-                    {{/sale_percentage}}
+                const badge = hit.sale_percentage ?
+                    `<p class="sale-percentage badge">${hit.sale_percentage}% off</p>` : "";
 
-                    <a href={{buy_link}} target="_blank">
-                        <p class="item-product-name">{{{_highlightResult.product_name.value}}}</p>
-                    </a>
-                    <p>{{#helpers.snippet}}{ "attribute": "long_description", "highlightedTagName": "mark" }{{/helpers.snippet}} ...</p>
+                // show original price (w/ strikethrough) if on sale
+                const price = hit.sale_percentage ?
+                    `<div class="item-price-container">
+                        <p class="item-price">$ ${hit.sale_price} </p>
+                        <p class="item-price-strike"><strike>$ ${hit.retail_price}</strike></p>
+                    </div>` :
+                    `<div class="item-price-container">
+                        <p class="item-price">$ ${hit.retail_price}</p>
+                    </div>`;
 
-                    {{#sale_percentage}}
-                    <div class="item-price-container">
-                        <p class="item-price">$ {{sale_price}}  </p>
-                        <p class="item-price-strike"><strike>$ {{retail_price}}</strike></p>
+                return `
+                    <div class="item">
+                        <a href=${hit.buy_link} ${bindEvent('click', hit, 'Product Click')} target="_blank">
+                            <img class="item-image" src="${hit.image_url}">
+                        </a>
+                        ${badge}
+                        <a href=${hit.buy_link} ${bindEvent('click', hit, 'Product Click')} target="_blank">
+                            <p class="item-product-name">
+                                ${instantsearch.highlight({ attribute: 'product_name', hit })}
+                            </p>
+                        </a>
+                        <p>${instantsearch.snippet({attribute: 'long_description', hit, highlightedTagName: 'mark' })} ...</p>
+                        ${price}
                     </div>
-                    {{/sale_percentage}}
-
-                    {{^sale_percentage}}
-                     <div class="item-price-container">
-                        <p class="item-price">$ {{retail_price}}  </p>
-                    </div>
-
-                    {{/sale_percentage}}
-                </div>
-                <br>
-            `,
+                    <br>
+                `;
+            }
         },
     }),
-    instantsearch.widgets.refinementList({
+    refinementList({
         container: '#category-list',
         attribute: 'product_group',
     }),
-    instantsearch.widgets.refinementList({
+    refinementList({
         container: '#brand-list',
         attribute: 'brand_name',
         searchable: true,
@@ -80,7 +102,7 @@ search.addWidgets([
 
 
     /*
-    instantsearch.widgets.currentRefinements({
+    currentRefinements({
         container: '#current-refinements',
         transformItems(items) {
             console.log(items);
@@ -109,17 +131,18 @@ search.addWidgets([
         },
     }),
     */
-    instantsearch.widgets.pagination({
+
+    pagination({
         container: '#pagination',
     }),
-    instantsearch.widgets.toggleRefinement({
+    toggleRefinement({
         container: '#toggle-refinement-sale',
         attribute: 'on_sale',
         templates: {
             labelText: 'On Sale',
         },
     }),
-    instantsearch.widgets.numericMenu({
+    numericMenu({
         container: '#numeric-sale-percentage',
         attribute: 'sale_percentage',
         items: [
@@ -132,13 +155,13 @@ search.addWidgets([
     }),
 
     // Set Category Page details here
-    instantsearch.widgets.configure({
+    configure({
         filters: `brand_name: '${brand_name}'`,
-        hitsPerPage: 50,
+        hitsPerPage: 20,
         analyticsTags: ['browse', `${brand_name}`],
     }),
 
-    instantsearch.widgets.queryRuleCustomData({
+    queryRuleCustomData({
         container: '#banner',
         templates: {
           default: `
@@ -152,3 +175,43 @@ search.addWidgets([
 ]);
 
 search.start();
+
+
+
+/*
+
+// Return hits as string 
+item: `
+    <div class="item">
+        <a href={{buy_link}} target="_blank">
+            <img class="item-image" src="{{image_url}}">
+        </a>
+
+        {{#sale_percentage}}
+        <p class="sale-percentage badge">{{sale_percentage}}% off</p>
+        {{/sale_percentage}}
+
+        <a href={{buy_link}} target="_blank">
+            <p class="item-product-name">{{{_highlightResult.product_name.value}}}</p>
+        </a>
+        <p>{{#helpers.snippet}}{ "attribute": "long_description", "highlightedTagName": "mark" }{{/helpers.snippet}} ...</p>
+
+        {{#sale_percentage}}
+        <div class="item-price-container">
+            <p class="item-price">$ {{sale_price}}  </p>
+            <p class="item-price-strike"><strike>$ {{retail_price}}</strike></p>
+        </div>
+        {{/sale_percentage}}
+
+        {{^sale_percentage}}
+         <div class="item-price-container">
+            <p class="item-price">$ {{retail_price}}  </p>
+        </div>
+
+        {{/sale_percentage}}
+    </div>
+    <br>
+`
+
+*/
+
