@@ -1,34 +1,25 @@
-let appID = 'ZCMWU7GCJV';
-let apiKey = 'fa7849a542f5c67f82291aebac55f07e';
-const searchClient = algoliasearch(appID, apiKey);
+import {
+  createInsightsMiddleware,
+} from 'instantsearch.js/es/middlewares';
+
+const insightsMiddleware = createInsightsMiddleware({
+  insightsClient: aa,
+});
+
+const searchClient = algoliasearch(
+    'ZCMWU7GCJV',
+    'fa7849a542f5c67f82291aebac55f07e'
+);
 const search = instantsearch({
   indexName: 'products-bc-distinct',
   searchClient,
-  /*
-    searchFunction(helper) {
-        console.log("top of searchFunction()");
-        console.log(search.helper.getPage());
-        helper.search();
-    },
-    */
 });
 
-var initLoad = true;
+//search.use(insightsMiddleware);
+
 var brand_name = "Osprey Packs"
 
 search.addWidgets([
-
-    /*
-    instantsearch.widgets.breadcrumb({
-        container: '#breadcrumb',
-        attributes: [
-            'categories.lvl0',
-            'categories.lvl1',
-            'categories.lvl2',
-        ],
-        separator: '/',
-    }),
-    */
 
     instantsearch.widgets.searchBox({
         container: '#searchbox',
@@ -128,7 +119,6 @@ search.addWidgets([
             labelText: 'On Sale',
         },
     }),
-
     instantsearch.widgets.numericMenu({
         container: '#numeric-sale-percentage',
         attribute: 'sale_percentage',
@@ -147,8 +137,6 @@ search.addWidgets([
         hitsPerPage: 50,
         analyticsTags: ['browse', `${brand_name}`],
     }),
-
-
 
     instantsearch.widgets.queryRuleCustomData({
         container: '#banner',
