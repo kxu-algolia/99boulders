@@ -286,11 +286,6 @@ input {
 .header {
   position: relative;
   align-items: center;
-  background: linear-gradient(
-    to bottom,
-    transparent 36%,
-    rgba(0, 0, 0, 0.1) 100%
-  );
   background-color: #0058a3;
   background-position: center;
   background-size: cover;
@@ -728,15 +723,9 @@ input[type="search"]::-webkit-search-results-decoration {
   display: flex;
   align-items: center;
   padding: 1rem;
-  height: 4rem;
+  height: 5rem;
   border-radius: 8px;
-  background: linear-gradient(
-      -180deg,
-      hsla(0, 0%, 100%, 0),
-      hsla(0, 0%, 100%, 0.8)
-    )
-    #ebecf3;
-  box-shadow: 0 20px 44px 0 rgba(0, 0, 0, 0.2);
+  background-color: #f5f5fa;
 }
 .demo.no-theme .preview-searcharea .ais-SearchBox-wrapper {
   background: none;
@@ -763,7 +752,7 @@ input[type="search"]::-webkit-search-results-decoration {
   outline: 0;
   background-color: transparent;
   font-family: Open Sans;
-  font-size: 0.875rem;
+  font-size: 1.25rem;
 }
 .demo.no-theme .preview-searcharea .ais-SearchBox-input {
   font-size: 2.5rem;
@@ -1606,7 +1595,7 @@ font-weight: inherit;
 .searchWidget,
 .searchWidgetPreview {
   max-width: 100%;
-  width: 47rem;
+  width: 80rem;
 }
 @media (max-width: 900px) {
   .searchWidget {
@@ -1796,19 +1785,12 @@ font-weight: inherit;
 }
 
 .federated-results-container {
-  width: 150%;
+  width: 100%;
   margin-top: 2em;
   position: absolute;
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(
-      -180deg,
-      hsla(0, 0%, 100%, 0),
-      hsla(0, 0%, 100%, 0.8)
-    )
-    #ffffff;
-  box-shadow: 0 20px 44px 0 rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1827,19 +1809,6 @@ font-weight: inherit;
   position: relative;
   padding: 12px 16px;
 }
-
-/*
-.federated-results-container .column:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 1px;
-  height: 100%;
-  background-color: #aaa;
-  opacity: 0.5;
-}
-*/
 
 .federated-results-container .column h2 {
   font-weight: normal;
