@@ -315,7 +315,7 @@ input {
 
 @media (max-width: 1600px) {
   .header {
-    padding-top: 10vh;
+    padding-top: 2vh;
   }
 }
 
@@ -1595,7 +1595,7 @@ font-weight: inherit;
 .searchWidget,
 .searchWidgetPreview {
   max-width: 100%;
-  width: 80rem;
+  width: 90rem;
 }
 @media (max-width: 900px) {
   .searchWidget {
@@ -1642,7 +1642,7 @@ font-weight: inherit;
 }
 .hit-image-container-box {
   position: relative;
-  padding-top: 100%;
+  /* padding-top: 100%;*/
 }
 .hit-image {
   position: absolute;
@@ -1872,3 +1872,70 @@ hr {
     text-align: center;
     height: 5px;
 }
+
+
+
+/**********************************************************
+ * Product Cards
+ *********************************************************/
+
+.item {
+  flex-basis: 100%;
+}
+.item mark {
+    background-color: rgba(226,164,0,.4);
+}
+.item a {
+    color: #0d375d;
+    text-decoration: none;
+}
+.item a:hover {
+    color:#00A0C6; 
+    text-decoration:none; 
+    cursor:pointer;  
+}
+
+.badge {
+    color: white;
+    background-color: #458cd5;
+    display: inline-block;
+    padding: 0 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    line-height: 22px;
+}
+
+.item-product-name {
+    font-weight:600;
+    margin-top: 0px;
+}
+.item-article-name {
+    font-weight:600;
+    font-size:  20px;
+    margin-top: 0px;
+}
+.item-image {
+    width:50%;
+    margin-bottom: 1rem;
+}
+.item-image-article {
+    width:100%;
+    margin-bottom: 1rem;
+    height: 100px;
+    object-fit: cover;
+}
+.item-price-container {
+    margin-top: .5rem;
+}
+.item-price-container p {
+    margin: 2px 0 2px 0;
+}
+.item-price-strike {
+    color: #c8c8c8;
+}c
+.item-price {
+    font-weight: 500;
+    color: #458cd5;
+}
+

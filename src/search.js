@@ -1,17 +1,34 @@
-import instantsearch from "instantsearch.js";
-import algoliasearch from "algoliasearch";
-import { configure, hits, searchBox, index } from "instantsearch.js/es/widgets";
+import instantsearch from 'instantsearch.js';
+import algoliasearch from 'algoliasearch';
+import { configure, hits, searchBox, index } from 'instantsearch.js/es/widgets';
 
-let appID = "ZCMWU7GCJV";
-let apiKey = "fa7849a542f5c67f82291aebac55f07e";
+import {
+    connectHits,
+    connectRefinementList,
+} from 'instantsearch.js/es/connectors';
 
 const search = instantsearch({
-  //indexName: 'products-bc',
-  indexName: "products-bc-distinct",
-  searchClient: algoliasearch(appID, apiKey)
+  indexName: 'products-bc-distinct',
+  searchClient: algoliasearch(
+    'ZCMWU7GCJV',
+    'fa7849a542f5c67f82291aebac55f07e'
+    )
 });
 
-// Add the widgets
+import {
+  createInsightsMiddleware,
+} from 'instantsearch.js/es/middlewares';
+
+const insightsMiddleware = createInsightsMiddleware({
+  insightsClient: aa,
+});
+search.use(insightsMiddleware);
+aa('setUserToken', 'admin');
+
+/**********************************************************
+ * Federated search box
+ *********************************************************/
+
 search.addWidgets([
   searchBox({
     container: "#search-box",
@@ -21,7 +38,6 @@ search.addWidgets([
     showLoadingIndicator: true
   }),
   index({
-    //indexName: 'products-bc',
     indexName: "products-bc-distinct",
     indexId: "products"
   }).addWidgets([
@@ -29,46 +45,45 @@ search.addWidgets([
       hitsPerPage: 9
     }),
     hits({
-      container: "#products",
-      templates: {
-        empty: "No results",
-        item: `
-                  <div class="item">
-                      <a href={{buy_link}} target="_blank">
-                      <figure class="hit-image-container">
-                        <div class="hit-image-container-box">
-                            <img class="hit-image" src="{{image_url}}" alt="">
-                        </div>
-                        </figure>
-                      <p class="hit-category">&#8203;​</p>
-                      <div class="item-content">
-                            {{#sale_percentage}}
-                                <p class="sale-percentage badge">{{sale_percentage}}% off</p>
-                            {{/sale_percentage}}
-                          <p class="brand hit-tag">{{{_highlightResult.brand_name.value}}}</p>
-                          <p class="name">{{{_highlightResult.product_name.value}}}</p>
-                          <p>{{color}}, {{size}}</p>
-                          <div class="hit-description" style="margin-top:.5rem;">
-                            {{#sale_percentage}}
-                                <p class="sale-price" style="font-weight:700;">$ {{sale_price}}</p>
-                                </b>
-                                <p class="retail-price" style="color:#808080;">
-                                    <strike>$ {{retail_price}}</strike>
-                                </p>
-                                </b>
-                            {{/sale_percentage}}
-                            {{^sale_percentage}}
-                                <p class="retail-price" style="font-weight:700;">$ {{retail_price}}</p>
-                                </b>
-                            {{/sale_percentage}}
-                          </div>
-                      </div>
-                      </a>
-                  </div>
-                  <br>`
-      }
-    })
-  ]),
+        container: '#products',
+        templates: {
+            item(hit, bindEvent) {
+
+                const badge = hit.sale_percentage ?
+                    `<p class="sale-percentage badge">${hit.sale_percentage}% off</p>` : "";
+
+                // show original price (w/ strikethrough) if on sale
+                const price = hit.sale_percentage ?
+                    `<div class="item-price-container">
+                        <p class="item-price">$ ${hit.sale_price} </p>
+                        <p class="item-price-strike"><strike>$ ${hit.retail_price}</strike></p>
+                    </div>` :
+                    `<div class="item-price-container">
+                        <p class="item-price">$ ${hit.retail_price}</p>
+                    </div>`;
+
+                const product_name = hit.product_name.substring(hit.brand_name.length);
+
+                return `
+                    <div class="item">
+                        <a href=${hit.buy_link} ${bindEvent('click', hit, 'Product Click')} target="_blank">
+                            <img class="item-image" src="${hit.image_url}">
+                        </a>
+                        ${badge}
+                        <p>${hit.brand_name}</p>
+                        <a href=${hit.buy_link} ${bindEvent('click', hit, 'Product Click')} target="_blank">
+                            <p class="item-product-name">${product_name}</p>
+                        </a>
+                        ${price}
+                    </div>
+                    <br>
+                `;
+            }
+        },
+      }),
+    ]),
+
+
   index({
     indexName: "crawler_99boulders",
     indexId: "blog"
@@ -78,30 +93,35 @@ search.addWidgets([
     }),
     hits({
       container: "#blog",
-      templates: {
-        empty: "No results",
-        item: `
+        templates: {
+            item(hit, bindEvent) {
+
+              console.log("hit", hit);
+
+              const imageUrl = hit.sectionImageUrl ?
+                hit.sectionImageUrl : hit.imageUrl;
+
+                return `
                   <div class="item row">
-                     <a href={{url}} target="_blank">
                       <figure class="hit-image-container">
                         <div class="hit-image-container-box">
-                                {{#sectionImageUrl}}
-                                <img class="hit-image" src="{{sectionImageUrl}}" alt="">
-                                {{/sectionImageUrl}}
-                                {{^sectionImageUrl}}
-                                <img class="hit-image" src="{{imageUrl}}" alt="">
-                                {{/sectionImageUrl}}
+                            <a href=${hit.url} target="_blank">
+                              <img class="item-image-article" src="${imageUrl}" alt="">
+                            </a>
                         </div>
                         </figure>
-                      <p class="hit-category">&#8203;​</p>
-                      <div class="item-content">
-                          <p class="title hit-tag">{{{_highlightResult.title.value}}}</p>
-                          <p class="hit-description">{{#helpers.snippet}}{"attribute":"content"}{{/helpers.snippet}}</p>
+                      <div class="item-content">          
+                          <a href=${hit.url} target="_blank">
+                          <p class="item-product-name">${instantsearch.highlight({ attribute: 'title', hit })}</p>
+                          </a>
+                          <p style="padding-top: 10px;">${hit.description}</p>
                       </div>
-                    </a>
                   </div>
-                  <br>`
-      }
+                  <br>
+                `;
+              }
+            
+        },
     })
   ])
 ]);
