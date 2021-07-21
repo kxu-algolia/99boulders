@@ -2,13 +2,9 @@
   "name": "99boulders",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
   "homepage": "https://kxu-algolia.github.io/99boulders/",
   "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html --public-url ./",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "start": "parcel index.html categories.html search.html"
   },
   "author": "kxu",
   "license": "ISC",
