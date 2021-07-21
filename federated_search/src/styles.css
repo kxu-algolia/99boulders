@@ -1786,11 +1786,19 @@ font-weight: inherit;
     margin-right: auto;
 }
 
-/**
- * FEDERATED SEARCH BOX STYLE
- */
 
-.preview-searcharea .ais-SearchBox-wrapper.is-open {
+/**********************************************************
+ * 
+ * CUSTOM CSS STARTS HERE
+ * 
+ *********************************************************/
+
+
+/**********************************************************
+ * Federated Search Box
+ *********************************************************/
+
+ .preview-searcharea .ais-SearchBox-wrapper.is-open {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -1803,10 +1811,10 @@ font-weight: inherit;
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(
-    -180deg,
-    hsla(0, 0%, 100%, 0),
-    hsla(0, 0%, 100%, 0.8)
-    )
+        -180deg,
+        hsla(0, 0%, 100%, 0),
+        hsla(0, 0%, 100%, 0.8)
+        )
     #FFFFFF;
     box-shadow: 0 20px 44px 0 rgba(0, 0, 0, 0.2);
     border-radius: 8px;
@@ -1859,7 +1867,10 @@ font-weight: inherit;
     line-height: 22px;
 }
 
-/* 99Boulders Header */
+/**********************************************************
+ * Main Header
+ *********************************************************/
+
 
 .logo {
     padding: 20px 10px 10px 10px;
@@ -1868,13 +1879,20 @@ font-weight: inherit;
     margin-left: 4rem;
 }
 
+
 .nav {
     padding:21px 11px 11px 11px;
-   list-style:none;
-   margin:0;
-   float:left;
-   margin-top: 3rem;
-   margin-left: 50vw;
+    list-style:none;
+    margin:0;
+    float:left;
+    margin-top: 3rem;
+    margin-left: 25vw;
+}
+
+@media (min: 1500px) {
+  .nav {
+    margin-left: 50vw;
+}
 }
 
 .nav li {
@@ -1882,11 +1900,11 @@ font-weight: inherit;
 }
 
 .menu-item {
-      text-transform: uppercase;
-      font-size: 18px;
-      font-weight: 700;
-      padding: 1rem;
-      font-family: "Helvetica";
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 1rem;
+  font-family: "Helvetica";
 }
 .menu-item:hover {
   color: #456cd5;
@@ -1901,3 +1919,190 @@ hr {
     text-align: center;
     height: 5px;
 }
+
+.section-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 0rem;
+}
+
+/**********************************************************
+ * Carousel
+ *********************************************************/
+
+.carousel-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 0rem;
+}
+
+.carousel-list-container {
+  display: flex;
+  overflow-x: auto;
+  list-style: none;
+  padding-left: 0;
+  position: relative;
+  scroll-behavior: smooth;
+  margin: 2rem 0 2rem 0;
+  width: 100%;
+}
+
+.carousel-list-container > li {
+  min-width: 190px;
+  position: relative;
+}
+
+.carousel-container li .overlay {
+  position: absolute;
+  width: 190px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  opacity: 0;
+  transition: opacity 0.2s;
+  padding: 1rem;
+}
+
+.carousel-list-container > li:hover .overlay {
+  opacity: 1;
+}
+
+.carousel-container li .overlay h3 {
+  margin-bottom: 16px;
+}
+
+/*
+.carousel-list-container > li img {
+  width: 190px;
+  height: 100%;
+  object-fit: cover;
+}
+*/
+
+.carousel-list-container > li:not(:last-child) {
+  margin-right: 16px;
+}
+
+.carousel-container button {
+    background-color:#0d375d;
+    border-radius:10px;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-size:18px;
+    padding:12px 37px;
+    text-decoration:none;
+}
+.carousel-container button:hover {
+    background-color:#00A0C6;
+}
+.carousel-container button:active {
+    position:relative;
+    top:1px;
+}
+
+/**********************************************************
+ * Category Pages
+ *********************************************************/
+
+
+.category-page-container {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 0rem;
+}
+
+.category-page-list {
+    flex-grow: 1;
+}
+.category-page-image {
+    flex-grow: 2;
+    width: 100%;
+}
+.category-page-list a {
+    text-decoration-line: underline;
+    text-decoration-color: #406eb5;
+    color: #406eb5;
+}
+.category-page-list a:hover {
+    color: lightskyblue;
+}
+.category-page-list li {
+    margin: .5rem 0 .5rem 0;
+}
+
+
+
+/**********************************************************
+ * Product Cards
+ *********************************************************/
+
+.item {
+  flex-basis: 100%;
+}
+.item mark {
+    background-color: rgba(226,164,0,.4);
+}
+.item a {
+    color: #0d375d;
+    text-decoration: none;
+}
+.item a:hover {
+    color:#00A0C6; 
+    text-decoration:none; 
+    cursor:pointer;  
+}
+
+.badge {
+    color: white;
+    background-color: #458cd5;
+    display: inline-block;
+    padding: 0 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    line-height: 22px;
+}
+
+.item-product-name {
+    font-weight:600;
+    margin-top: 0px;
+}
+.item-article-name {
+    font-weight:600;
+    font-size:  20px;
+    margin-top: 0px;
+}
+.item-image {
+    width:100%;
+    margin-bottom: 1rem;
+}
+.item-image-article {
+    width:100%;
+    margin-bottom: 1rem;
+    height: 250px;
+    object-fit: cover;
+}
+.item-price-container {
+    margin-top: .5rem;
+}
+.item-price-container p {
+    margin: 2px 0 2px 0;
+}
+.item-price-strike {
+    color: #c8c8c8;
+}c
+.item-price {
+    font-weight: 500;
+    color: #458cd5;
+}
+

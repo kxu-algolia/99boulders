@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block"
             rel="stylesheet"
@@ -12,6 +13,14 @@
             />
         <link rel="stylesheet" type="text/css" href="src/styles.css" />
         <title>99Boulders Demo</title>
+
+        <script>
+          var ALGOLIA_INSIGHTS_SRC = "https://cdn.jsdelivr.net/npm/search-insights@1.8.0";
+          !function(e,a,t,n,s,i,c){e.AlgoliaAnalyticsObject=s,e[s]=e[s]||function(){
+          (e[s].queue=e[s].queue||[]).push(arguments)},i=a.createElement(t),c=a.getElementsByTagName(t)[0],
+          i.async=1,i.src=n,c.parentNode.insertBefore(i,c)
+          }(window,document,"script",ALGOLIA_INSIGHTS_SRC,"aa");
+        </script>    
     </head>
 
     <body>
@@ -29,14 +38,11 @@
         </div>
         <hr>
 
-        <header
+        <!-- Federated Search Bar -->
+        <!--div
             class="header preview-searcharea"
             style="background-color: #ffffff;"
             >
-
-
-
-
             <div class="searchWidget widget">
                 <div class="searchWidgetPreview">
                     <div class="ais-SearchBox-wrapper" id="search-wrapper">
@@ -55,7 +61,94 @@
                     </div>
                 </div>
             </div>
-        </header>
+        </div-->
+
+        <!-- Carousels & Curated Collections -->
+
+        <div class="section-container">
+
+            <h1>Osprey: Shop the Collection</h1>
+
+            <div class="carousel-container">
+                <div id="carousel-products-osprey-collection"></div>
+            </div>
+
+            <div class="category-page-container">
+                <div class="category-page-list">
+                    <h2>Popular Packs and Specs</h2>
+                    <ul>
+                        <li><a href="https://www.99boulders.com/osprey-atmos-ag-50" target="_blank">Osprey Atmos AG 50L</a></li>
+                        <li><a href="https://www.99boulders.com/osprey-aether-plus-85" target="_blank">Osprey Aether Plus 85L</a></li>
+                        <li><a href="https://www.99boulders.com/osprey-lumina-60" target="_blank">Osprey Lumina 60L</a></li>
+                        <li><a href="https://www.99boulders.com/osprey-ariel-65" target="_blank">Osprey Ariel 65L</a></li>
+                        <li><a href="https://www.99boulders.com/osprey-kestrel-58" target="_blank">Osprey Kestel 58L</a></li>
+                    </ul>
+                </div>
+
+                <div class="category-page-list">
+                    <h2>Pack Comparisons</h2>
+                    <ul>
+                        <li><a href="https://www.99boulders.com/osprey-exos-48-vs-osprey-kestrel-48" target="_blank">Osprey Exos 48L vs Osprey Kestrel 48L</a></li>
+                        <li><a href="https://www.99boulders.com/osprey-aura-ag-50-vs-osprey-aura-ag-65" target="_blank">Osprey Aura AG 50L vs Osprey Aura AG 65L</a></li>
+                        <li><a href="https://www.99boulders.com/osprey-ariel-plus-60-vs-osprey-ariel-pro-65" target="_blank">Osprey Ariel Plsu 60L vs Osprey Ariel Pro 65L</a></li>
+                        <li><a href="https://www.99boulders.com/gregory-baltoro-85-vs-osprey-aether-plus-85" target="_blank">Gregory Baltoro 85 vs Osprey Aether Plus 85</a></li>
+                        <li><a href="https://www.99boulders.com/osprey-aether-plus-70-vs-osprey-aether-plus-85" target="_blank">Osprey Aether Plus 70 vs Osprey Aether Plus 85</a></li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="carousel-container">
+                <button type="button" onclick="alert('Hello world!')">Shop Osprey Deals</button>
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+        <!-- Articles Curated Collections --> 
+        <div class="section-container">
+            <div class="carousel-container">
+                <h2>Explore our Most Popular Guides</h2>
+                <div id="carousel-articles-best-of"></div>
+
+            </div>
+        </div>
+        
+        <!-- Best Deals / Discounts -->
+        <div class="section-container">
+            <div class="carousel-container">
+                <h2>Best Deals</h2>
+                <div id="carousel-products-best-deals"></div>
+            </div>
+        </div>
+
+
+
+        <!-- Category Pages -->
+        <!--
+        <div class="category-page-container">
+            <h2>Categories</h2>
+        </div>
+        <div class="category-page-container">
+            <ul class="category-page-list">
+                <li>Camp & Hike</li>
+                <li>Climb</li>
+                <li>Gear Reviews</li>
+                <li>Blog</li>
+            </ul>
+            <ul class="category-page-list">
+                <li>Osprey</li>
+                <li>Arcteryx</li>
+            </ul>
+            <img class="category-page-image" src="https://www.99boulders.com/wp-content/uploads/2015/11/home-background.jpg">
+        </div>
+        -->
+
     </body>
 
     <script src="https://cdn.jsdelivr.net/npm/algoliasearch@3.35.1/dist/algoliasearchLite.min.js"></script>

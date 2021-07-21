@@ -7,14 +7,156 @@ import {
     connectRefinementList,
 } from 'instantsearch.js/es/connectors';
 
-let appID = 'ZCMWU7GCJV';
-let apiKey = 'fa7849a542f5c67f82291aebac55f07e';
-
 const search = instantsearch({
-    //indexName: 'products-bc',
-    indexName: 'products-bc-distinct',
-    searchClient: algoliasearch(appID, apiKey),
+  indexName: 'products-bc-distinct',
+  searchClient: algoliasearch(
+    'ZCMWU7GCJV',
+    'fa7849a542f5c67f82291aebac55f07e'
+    )
 });
+
+import {
+  createInsightsMiddleware,
+} from 'instantsearch.js/es/middlewares';
+
+const insightsMiddleware = createInsightsMiddleware({
+  insightsClient: aa,
+});
+search.use(insightsMiddleware);
+aa('setUserToken', 'admin');
+
+
+/**********************************************************
+ * Carousels
+ *********************************************************/
+
+const renderCarouselProduct = ({ widgetParams, hits, bindEvent }, isFirstRender) => {
+    const container = document.querySelector(widgetParams.container);
+
+    if (isFirstRender) {
+        const carouselUl = document.createElement('ul');
+        carouselUl.classList.add('carousel-list-container');
+        container.appendChild(carouselUl);
+    }
+
+    container.querySelector('ul').innerHTML = hits.map(function(hit) {
+
+        const badge = hit.sale_percentage ?
+            `<p class="sale-percentage badge">${hit.sale_percentage}% off</p>` : "";
+
+        // show original price (w/ strikethrough) if on sale
+        const price = hit.sale_percentage ?
+            `<div class="item-price-container">
+                <p class="item-price">$ ${hit.sale_price} </p>
+                <p class="item-price-strike"><strike>$ ${hit.retail_price}</strike></p>
+            </div>` :
+            `<div class="item-price-container">
+                <p class="item-price">$ ${hit.retail_price}</p>
+            </div>`;
+
+        const product_name = hit.product_name.substring(hit.brand_name.length);
+
+        return `
+            <li class="item">
+                <a href=${hit.buy_link} ${bindEvent('click', hit, 'Product Click')} target="_blank">
+                    <img class="item-image" src="${hit.image_url}">
+                </a>
+                ${badge}
+                <p>${hit.brand_name}</p>
+                <a href=${hit.buy_link} ${bindEvent('click', hit, 'Product Click')} target="_blank">
+                    <p class="item-product-name">${product_name}</p>
+                </a>
+                ${price}
+            </li>
+        `;
+
+    }, bindEvent).join('');
+};
+
+const renderCarouselArticle = ({ widgetParams, hits, bindEvent }, isFirstRender) => {
+    const container = document.querySelector(widgetParams.container);
+
+    if (isFirstRender) {
+        const carouselUl = document.createElement('ul');
+        carouselUl.classList.add('carousel-list-container');
+        container.appendChild(carouselUl);
+    }
+
+    container.querySelector('ul').innerHTML = hits.map(function(hit) {
+        return `
+            <li class="item">
+                <a href=${hit.url} ${bindEvent('click', hit, 'Article Click')} target="_blank">
+                    <img class="item-image-article" src="${hit.imageUrl}">
+                </a>
+                <a href=${hit.url} ${bindEvent('click', hit, 'Article Click')} target="_blank">
+                    <p class="item-article-name">${hit.title}</p>
+                </a>
+                <p>${hit.description}</p>
+            </li>
+        `;
+    }, bindEvent).join('');
+};
+
+const renderCarouselProductHits = connectHits(renderCarouselProduct);
+const renderCarouselArticleHits = connectHits(renderCarouselArticle);
+
+search.addWidgets([
+
+    //
+    // Product Carousels
+    //
+    index({
+        indexName: 'products-bc-distinct_sale_percentage_desc',
+        indexId: 'carousel-product-best-deals',
+    }).addWidgets([
+        configure({
+            hitsPerPage: 10,
+        }),
+        renderCarouselProductHits({
+            container: '#carousel-products-best-deals',
+        }),
+    ]),
+    index({
+        indexName: 'products-bc-distinct',
+        indexId: 'carousel-products-osprey-collection',
+    }).addWidgets([
+        configure({
+            hitsPerPage: 8,
+            ruleContexts: ['carousel_osprey_collection'],
+        }),
+        renderCarouselProductHits({
+            container: '#carousel-products-osprey-collection',
+        }),
+    ]),
+
+    //
+    // Article Carousels
+    //
+    index({
+        indexName: 'crawler_99boulders',
+        indexId: 'carousel-articles-best-of',
+    }).addWidgets([
+        configure({
+            hitsPerPage: 3,
+            ruleContexts: ['carousel_articles_best_of'],
+        }),
+        renderCarouselArticleHits({
+            container: '#carousel-articles-best-of',
+        }),
+    ]),
+
+]);
+
+search.start();
+
+
+
+/**********************************************************
+ * Federated Search Box
+ *********************************************************/
+
+
+/*
 
 // Add the widgets
 search.addWidgets([
@@ -134,3 +276,5 @@ search.on('render', () => {
         e.stopPropagation();
     });
 });
+
+*/
