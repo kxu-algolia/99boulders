@@ -1892,7 +1892,7 @@ font-weight: inherit;
 @media (min: 1500px) {
   .nav {
     margin-left: 50vw;
-}
+    }
 }
 
 .nav li {
@@ -1908,7 +1908,6 @@ font-weight: inherit;
 }
 .menu-item:hover {
   color: #456cd5;
-
 }
 
 hr {
@@ -1924,6 +1923,15 @@ hr {
     max-width: 1000px;
     margin: 0 auto;
     padding: 2rem 0rem;
+}
+
+.search-icon {
+    width: 25px;
+    display: inline;
+    margin: 0 0 .5rem 1rem;
+}
+.search-icon:hover {
+    cursor: pointer;
 }
 
 /**********************************************************

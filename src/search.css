@@ -1848,34 +1848,39 @@ font-weight: inherit;
 }
 
 .badge {
-  color: white;
-  background-color: #3c4fe0;
-  display: inline-block;
-  padding: 0 10px;
-  font-size: 12px;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-  line-height: 22px;
+    color: white;
+    background-color: #458cd5;
+    display: inline-block;
+    padding: 0 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    line-height: 22px;
 }
-
 .logo {
-  padding: 20px 10px 10px 10px;
-  display: inline;
-  float: left;
-  margin-left: 4rem;
+    padding: 20px 10px 10px 10px;
+    display: inline;
+    float:left;
+    margin-left: 4rem;
 }
 
 .nav {
-  padding: 21px 11px 11px 11px;
-  list-style: none;
-  margin: 0;
-  float: left;
-  margin-top: 3rem;
-  margin-left: 60rem;
+    padding:21px 11px 11px 11px;
+    list-style:none;
+    margin:0;
+    float:left;
+    margin-top: 3rem;
+    margin-left: 25vw;
+}
+
+@media (min: 1500px) {
+  .nav {
+    margin-left: 50vw;
+    }
 }
 
 .nav li {
-  display: inline;
+   display:inline;
 }
 
 .menu-item {
@@ -1887,13 +1892,14 @@ font-weight: inherit;
 }
 .menu-item:hover {
   color: #456cd5;
+
 }
 
 hr {
-  border: none;
-  border-top: 1px solid #e2e2e2;
-  color: #e2e2e2;
-  overflow: visible;
-  text-align: center;
-  height: 5px;
+    border: none;
+    border-top: 1px solid #e2e2e2;
+    color: #e2e2e2;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
 }
