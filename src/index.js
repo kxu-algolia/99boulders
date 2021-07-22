@@ -106,6 +106,18 @@ search.addWidgets([
     // Product Carousels
     //
     index({
+        indexName: 'products-bc-distinct',
+        indexId: 'carousel-products-osprey-collection',
+    }).addWidgets([
+        configure({
+            hitsPerPage: 8,
+            ruleContexts: ['carousel_osprey_collection'],
+        }),
+        renderCarouselProductHits({
+            container: '#carousel-products-osprey-collection',
+        }),
+    ]),
+    index({
         indexName: 'products-bc-distinct_sale_percentage_desc',
         indexId: 'carousel-product-best-deals',
     }).addWidgets([
@@ -118,14 +130,14 @@ search.addWidgets([
     ]),
     index({
         indexName: 'products-bc-distinct',
-        indexId: 'carousel-products-osprey-collection',
+        indexId: 'carousel-products-perso-emily',
     }).addWidgets([
         configure({
-            hitsPerPage: 8,
-            ruleContexts: ['carousel_osprey_collection'],
+            hitsPerPage: 10,
+            ruleContexts: ['carousel-products-perso-emily'],
         }),
         renderCarouselProductHits({
-            container: '#carousel-products-osprey-collection',
+            container: '#carousel-products-perso-emily',
         }),
     ]),
 
@@ -144,7 +156,18 @@ search.addWidgets([
             container: '#carousel-articles-best-of',
         }),
     ]),
-
+    index({
+        indexName: 'crawler_99boulders',
+        indexId: 'carousel-articles-climbing',
+    }).addWidgets([
+        configure({
+            hitsPerPage: 3,
+            ruleContexts: ['carousel-articles-climbing'],
+        }),
+        renderCarouselArticleHits({
+            container: '#carousel-articles-climbing',
+        }),
+    ]),
 ]);
 
 search.start();

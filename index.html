@@ -41,15 +41,28 @@
         </div>
         <hr>
 
+
+        <!-- Articles Curated Collections --> 
+        <div class="section-container">
+            <div class="carousel-container">
+                <h1>Explore our Most Popular Guides</h1>
+            </div>
+            <div class="carousel-container">
+                <h2>Most Popular Reviews</h2>
+                <div id="carousel-articles-best-of"></div>
+            </div>
+            <div class="carousel-container">
+                <h2>Climb into Summer</h2>
+                <div id="carousel-articles-climbing"></div>
+                <button type="button">Read More</button>
+            </div>
+        </div>
+        <hr>
+
         <!-- Carousels & Curated Collections -->
         <div class="section-container">
 
-            <h1>Osprey: Shop the Collection</h1>
-
-            <div class="carousel-container">
-                <div id="carousel-products-osprey-collection"></div>
-            </div>
-
+            <h1>Osprey: Specs, Reviews & Deals</h1>
             <div class="category-page-container">
                 <div class="category-page-list">
                     <h2>Popular Packs and Specs</h2>
@@ -72,59 +85,55 @@
                         <li><a href="https://www.99boulders.com/osprey-aether-plus-70-vs-osprey-aether-plus-85" target="_blank">Osprey Aether Plus 70 vs Osprey Aether Plus 85</a></li>
                     </ul>
                 </div>
-
-
             </div>
             <div class="carousel-container">
-                <button type="button" onclick="location.href='./categories.html'">Shop Osprey Deals</button>
-            </div>
-
-        </div>
-
-
-
-
-
-        <!-- Articles Curated Collections --> 
-        <div class="section-container">
-            <div class="carousel-container">
-                <h2>Explore our Most Popular Guides</h2>
-                <div id="carousel-articles-best-of"></div>
-
+                <h2>Our Favorite Packs</h2>
+                <div id="carousel-products-osprey-collection"></div>
+                <button type="button" onclick="location.href='./categories.html'">Shop Osprey</button>
             </div>
         </div>
-        
+        <hr>
+
         <!-- Best Deals / Discounts -->
         <div class="section-container">
-            <div class="carousel-container">
-                <h2>Best Deals</h2>
+            <div class="carousel-container perso-container">
+                <h1 id="perso-header-anon">For You</h1>
+                <h1 id="perso-header-emily" style="display:none">Welcome Emily</h1>
+                <input id="perso-toggle" class="toggle" type="checkbox" onclick="togglePerso()"/>
+            </div>
+            <div id="perso-container-anon" class="carousel-container">
+                <h2>Best Product Deals</h2>
                 <div id="carousel-products-best-deals"></div>
             </div>
+            <div id="perso-container-emily" class="carousel-container" style="display:none">
+                <h2>Recommended For You</h2>
+                <div id="carousel-products-perso-emily"></div>
+            </div>
         </div>
-
-
-        <!-- Category Pages -->
-        <!--
-        <div class="category-page-container">
-            <h2>Categories</h2>
-        </div>
-        <div class="category-page-container">
-            <ul class="category-page-list">
-                <li>Camp & Hike</li>
-                <li>Climb</li>
-                <li>Gear Reviews</li>
-                <li>Blog</li>
-            </ul>
-            <ul class="category-page-list">
-                <li>Osprey</li>
-                <li>Arcteryx</li>
-            </ul>
-            <img class="category-page-image" src="https://www.99boulders.com/wp-content/uploads/2015/11/home-background.jpg">
-        </div>
-        -->
-
+        <hr>
     </body>
 
+    <script>
+        // Perso toggling
+        var perso = false;
+        function togglePerso() {
+            var elements = [
+                "perso-header-anon", "perso-header-emily",
+                "perso-container-anon", "perso-container-emily"
+            ];
+            for (e of elements) {
+                toggleState(document.getElementById(e));
+            }
+            perso = !perso;
+        }
+        function toggleState(e) {
+            if (e.style.display === "none") {
+                e.style.display = null;
+            } else {
+                e.style.display = "none";
+            }
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/algoliasearch@3.35.1/dist/algoliasearchLite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.0.0/dist/instantsearch.production.min.js"></script>
     <script src="src/index.js" type="module"></script>
