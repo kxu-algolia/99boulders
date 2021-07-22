@@ -1786,7 +1786,7 @@ font-weight: inherit;
 
 .federated-results-container {
   width: 100%;
-  margin-top: 2em;
+  margin-top: 1.5em;
   position: absolute;
   top: 100%;
   left: 50%;
@@ -1938,4 +1938,47 @@ hr {
     font-weight: 500;
     color: #458cd5;
 }
+
+.search-icon {
+    width: 25px;
+    display: inline;
+    margin: 0 0 .5rem 1rem;
+}
+.search-icon:hover {
+    cursor: pointer;
+}
+
+/**********************************************************
+ * Query Suggestions
+ *********************************************************/
+
+.query-suggestions {
+  margin-top: 1rem;
+}
+.query-suggestions li {
+    display: inline;
+    background-color:#f5f5fa;
+    border-radius:5px;
+    cursor:pointer;
+    color:rgb(33 36 60 / 0.52);
+    font-size:14px;
+    padding:8px 20px;
+    text-decoration:none;
+
+}
+.query-suggestions li:hover {
+    /* background-color:#00A0C6; */
+}
+.query-suggestions li:active {
+    position:relative;
+    top:1px;
+}
+
+.query-suggestions-list {
+  width:  100%;
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+
 
